@@ -5,6 +5,7 @@ import PageHero from "../components/PageHero";
 import ContactLocations from "../components/ContactLocations";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { ThemeProvider } from "../components/ThemeProvider";
 
 export default function ContactPage() {
   const [timeline, setTimeline] = useState<string>("");
@@ -293,6 +294,8 @@ export default function ContactPage() {
       </section>
 
       <ContactLocations />
+      
+      <ThemeProvider />
       <Footer />
     </>
   );

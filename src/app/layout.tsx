@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
 
+import ThemeToggle from "./components/ThemeToggle";
+import FloatingButtons from "./components/FloatingButtons";
+import { ThemeProvider } from "./components/ThemeProvider";
+
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400"],
-  
   display: "swap",
 });
 
@@ -18,15 +20,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${plusJakarta.className} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${plusJakarta.className} antialiased`}>
+        
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ThemeToggle />
+          <FloatingButtons />
+          {children}
+        </ThemeProvider>
+
       </body>
     </html>
   );

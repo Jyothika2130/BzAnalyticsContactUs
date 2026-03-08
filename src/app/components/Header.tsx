@@ -1,162 +1,127 @@
 "use client";
-import { useState } from "react";
-import { Inter } from "next/font/google";
+import { FiChevronUp, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import React, { useState } from "react";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-export default function Header() {
-  const [open, setOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+const navItems = [
+  { name: "Home" },
+  { name: "About Us" },
+  { name: "Services" },
+  { name: "Success Stories" },
+  { name: "Blogs" },
+  { name: "Careers" },
+  { name: "Contact Us" },
+];
 
-  const menuItems = [
-    "Home",
-    "About Us",
-    "Services",
-    "Success Stories",
-    "Blogs",
-    "Careers",
-    "Contact Us",
-  ];
+const languages = [
+  { code: "en", label: "EN", flag: "/usa.png" },
+  { code: "hi", label: "HI", flag: "/india.png" },
+  { code: "ar", label: "AR", flag: "/uae.png" },
+];
+
+const Header = () => {
+  const [openLang, setOpenLang] = useState(false);
+  const [selectedLang, setSelectedLang] = useState(languages[0]);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="w-full bg-black text-white px-6 space-x-[0.5px] lg:px-12 py-5 flex items-center justify-between relative">
-      {/* LOGO */}
-      <div className="flex items-center">
-        <img
-          src="https://bzanalytics.ai/assets/bz/bq.png"
-          alt="BZ Analytics"
-          className="w-[120px] lg:w-[140px] h-auto object-contain"
-        />
-      </div>
-
-      <nav className="hidden lg:flex items-center gap-10 text-[15px] font-medium mr-[25px]">
-        {menuItems.map((item, index) => (
-          <a
-            key={index}
-            href="#"
-            className={`${inter.className} font-[14px] flex items-center gap-2 hover:text-orange-500 transition `}
-          >
-            <div
-              className="relative
-after:content-['']
-after:absolute
-after:left-[-14px]
-after:top-0
-after:bottom-0
-after:my-auto
-after:w-[5px]
-after:h-[5px]
-after:rounded-full
-after:bg-current"
-            >
-              {item}
-            </div>
-          </a>
-        ))}
+    <header className="fixed top-0 left-0 w-full bg-white dark:bg-black z-50">
+      <div className="max-w-[1250px] mx-auto px-3 h-[80px] flex items-center justify-between">
 
        
-       <div className="relative">
-  {/* Trigger */}
-  <button
-    onClick={() => setOpen(!open)}
-    className="flex items-center gap-2 text-white hover:text-gray-300 transition-all duration-300"
-  >
-    <img src="/usa.png" alt="EN" className="w-5 h-5 rounded-full" />
-    <span>EN</span>
-    <span
-      className={`transition-transform duration-300 ${
-        open ? "rotate-180" : ""
-      }`}
-    >
-      ▾
-    </span>
-  </button>
+        <img className="w-[150px] h-auto" src="/bz.png" alt="logo" />
 
-  {/* Dropdown */}
-  {open && (
-    <div className="absolute right-0 mt-3 z-50 w-40 rounded-md bg-[#1f1f1f] text-white shadow-lg overflow-hidden">
-      
-      <button className="flex items-center gap-3 px-4 py-3 w-full hover:bg-neutral-800">
-        <img src="/india.png" className="w-5 h-5 rounded-full" />
-        <span>HI</span>
-      </button>
+     
+        <ul className="hidden lg:flex ml-7 items-center gap-1 text-[15px] font-bold">
+          <span className="text-white text-[13px]">•</span>
 
-      <button className="flex items-center gap-3 px-4 py-3 w-full hover:bg-neutral-800">
-        <img src="/uae.png" className="w-5 h-5 rounded-full" />
-        <span>AR</span>
-      </button>
+          {navItems.map((item, index) => (
+            <li key={index} className="flex items-center gap-3">
+              <span className="cursor-pointer hover:text-orange-500 text-white transition">
+                {item.name}
+              </span>
 
-    </div>
-  )}
-</div>
-      </nav>
-
-      {/* RIGHT BUTTON (Desktop Only) */}
-      <div className="hidden lg:block">
-        <button className="px-10 py-[15px] border border-white bg-black text-white hover:bg-white hover:text-black transition duration-300 text-[16px] font-bold">
-          Schedule a Consultation
-        </button>
-      </div>
-
-      {/* MOBILE HAMBURGER */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="lg:hidden text-3xl"
-      >
-        ☰
-      </button>
-
-      {/* MOBILE SIDEBAR */}
-      <div
-        className={`fixed top-0 left-0 h-full w-[280px] bg-black text-white transform transition-transform duration-300 z-50
-        ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
-      >
-        {/* Close Button */}
-        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-700">
-          <span className="text-lg font-semibold">Menu</span>
-          <button onClick={() => setMobileOpen(false)}>✕</button>
-        </div>
-
-        {/* Mobile Links */}
-        <div className="flex flex-col gap-6 px-6 py-8 text-[16px]">
-          {menuItems.map((item, index) => (
-            <a
-              key={index}
-              href="#"
-              className="flex items-center gap-3 hover:text-gray-300"
-              onClick={() => setMobileOpen(false)}
-            >
-              <span className="text-lg">•</span>
-              {item}
-            </a>
+              {index !== navItems.length - 1 && (
+                <span className="text-white text-[13px]">•</span>
+              )}
+            </li>
           ))}
+        </ul>
 
-          {/* Region Section */}
-          <div className="border-t border-gray-700 pt-6">
-            <p className="mb-3 text-gray-400">Region</p>
-            <div className="space-y-3">
-              <div className="cursor-pointer hover:text-gray-300">EN</div>
-              <div className="cursor-pointer hover:text-gray-300">🇮🇳</div>
-              <div className="cursor-pointer hover:text-gray-300">AR</div>
-            </div>
+       
+        <div className="flex items-center gap-6">
+
+        
+          <div className="relative">
+            <button
+              onClick={() => setOpenLang(!openLang)}
+              className="flex items-center gap-2 text-white"
+            >
+              <img
+                src={selectedLang.flag}
+                className="w-6 h-6 rounded-full object-cover"
+                alt="flag"
+              />
+              {selectedLang.label}
+              {openLang ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
+            </button>
+
+            {openLang && (
+              <div className="absolute right-0 mt-3 bg-black border border-gray-700 rounded-md shadow-lg w-[120px] z-50">
+                {languages.map((lang) => (
+                  <div
+                    key={lang.code}
+                    onClick={() => {
+                      setSelectedLang(lang);
+                      setOpenLang(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 cursor-pointer text-white"
+                  >
+                    <img
+                      src={lang.flag}
+                      className="w-5 h-5 rounded-full object-cover"
+                      alt={lang.label}
+                    />
+                    {lang.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Mobile Button */}
-          <button className="mt-6 px-6 py-3 border border-white bg-black text-white hover:bg-white hover:text-black transition duration-300">
-            Schedule a Consultation
+          
+          <button className="hidden lg:block border me-0.5 border-white text-white font-bold px-5 py-2 hover:bg-white hover:text-black transition">
+            Schedule a consultation
+          </button>
+
+          
+          <button
+            className="lg:hidden text-white"
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            {openMenu ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* Overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-40"
-          onClick={() => setMobileOpen(false)}
-        />
+      
+      {openMenu && (
+        <div className="lg:hidden bg-black px-6 py-6 space-y-4">
+          {navItems.map((item, index) => (
+            <div
+              key={index}
+              className="text-white border-b border-gray-700 pb-3 cursor-pointer hover:text-orange-500"
+            >
+              {item.name}
+            </div>
+          ))}
+
+          <button className="w-full mt-4 border border-white text-white font-bold px-5 py-2 hover:bg-white hover:text-black transition">
+            Schedule a consultation
+          </button>
+        </div>
       )}
     </header>
   );
-}
+};
+
+export default Header;
