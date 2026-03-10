@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Header from "./components/Header";
+
 
 import ThemeToggle from "./components/ThemeToggle";
 import FloatingButtons from "./components/FloatingButtons";
 import { ThemeProvider } from "./components/ThemeProvider";
+import CustomCursor from "./components/custom-cursor";
+import ScrollProgressCircle from "./components/ScrollProgressCircle";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -24,21 +28,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakarta.className} antialiased`}>
-        
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${plusJakarta.className} antialiased`}>
+          <Header />
+          
+         
           <ThemeToggle />
-          <FloatingButtons />
           {children}
-        </ThemeProvider>
-
-      </body>
-    </html>
+          <CustomCursor />
+          <ScrollProgressCircle />
+           <FloatingButtons />
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }

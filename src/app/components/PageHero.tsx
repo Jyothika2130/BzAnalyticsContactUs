@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 interface PageHeroProps {
   title: string;
   breadcrumb: string;
@@ -5,43 +9,41 @@ interface PageHeroProps {
 
 export default function PageHero({ title, breadcrumb }: PageHeroProps) {
   return (
-    <div className="relative min-h-[50vh] md:min-h-[60vh] overflow-hidden flex items-center">
+    <section className="relative flex h-[300px] w-full items-center overflow-hidden sm:h-[350px] md:h-[550px] lg:h-[60vh]">
 
-     
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://bzanalytics.ai/assets/images/backgrounds/page-header-bg-1-1.jpg')",
-        }}
-      />
+      {/* Background Image */}
+      <div className="absolute inset-0 bg-[url('/about-bg.jpg')] bg-cover bg-center bg-no-repeat opacity-70"></div>
 
-     
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Light Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-white/30 to-transparent dark:from-black/80 dark:via-black/40"></div>
 
-     
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black" />
+      {/* Content */}
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col px-6 md:px-12">
 
-      
-      <div className="relative z-10 w-full px-4 sm:px-8 md:px-16 lg:px-32">
-        <div className="max-w-4xl text-white">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex max-w-3xl flex-grow flex-col justify-start pt-16 md:pt-32"
+        >
 
-          
-          <div className="mb-4 text-sm sm:text-base flex items-center gap-2 text-gray-200">
-            <a href="/" className="hover:text-orange-400 transition font-bold text-[16px]">
+          {/* Breadcrumb */}
+          <div className="mb-2 flex items-center gap-2 text-[17px] font-semibold text-black/70 md:text-lg dark:text-white/90">
+            <span className="cursor-pointer hover:text-black dark:hover:text-white">
               Home
-            </a>
-            <span>.</span>
-            <span className="font-bold text-[16px]">{breadcrumb}</span>
+            </span>
+            <span className="font-bold">.</span>
+            <span>{breadcrumb}</span>
           </div>
 
-          
-          <h1 className="text-3xl sm:text-4xl md:text-[160px] lg:text-6xl font-extrabold">
+          {/* Title */}
+          <h1 className="text-5xl font-bold leading-none tracking-tight text-black sm:text-6xl md:text-7xl lg:text-[90px] dark:text-white">
             {title}
           </h1>
 
-        </div>
+        </motion.div>
       </div>
-    </div>
+
+    </section>
   );
 }

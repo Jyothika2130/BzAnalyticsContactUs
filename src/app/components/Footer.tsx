@@ -1,166 +1,179 @@
-"use client";
 
-import React, { useState } from "react";
-import {
-  FaLinkedinIn,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+'use client';
+import { Linkedin, Facebook, Instagram } from 'lucide-react';
+import Image from 'next/image';
+import { FaYoutube } from 'react-icons/fa';
 
-const menuColumn1 = ["Home", "About Us", "Services", "Success Stories"];
-const menuColumn2 = ["Blogs", "Careers", "Contact Us"];
-
-const socialIcons = [
-  { icon: <FaLinkedinIn />, link: "#" },
-  { icon: <FaXTwitter />, link: "#" },
-  { icon: <FaFacebookF />, link: "#" },
-  { icon: <FaInstagram />, link: "#" },
-  { icon: <FaYoutube />, link: "#" },
-];
-
-const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const validateEmail = (email: any) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-
-    if (!email) {
-      setError("Email is required");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    setLoading(true);
-
-
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess("Subscribed successfully!");
-      setEmail("");
-    }, 1500);
-  };
-
+export default function Footer() {
   return (
-    <footer className="w-full bg-[#111] text-white">
-      <div className="max-w-[1375px] mx-auto px-6 py-12 lg:py-16">
+    <footer className="relative overflow-hidden bg-[#131313] pt-24 pb-40 font-sans text-white">
+      
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 20px)`,
+          backgroundSize: '100% 100%',
+        }}
+      ></div>
 
-        <div className="text-center lg:text-left">
-          <p className="text-[20px] md:text-[24px] font-medium text-gray-300">
-            Let’s start working together
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 hover:text-orange-400 transition cursor-pointer">
-            hello@bzanalytics.ai
-          </h2>
-        </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="flex flex-col gap-16 lg:flex-row lg:gap-[120px]">
+      
+          <div className="flex-1 lg:max-w-[750px]">
+           
+            <div className="mb-8">
+              <p className="mb-2 text-xl font-medium text-white">
+                Let&apos;s start working together
+              </p>
+              <h2 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-[54px]">
+                hello@bzanalytics.ai
+              </h2>
+            </div>
 
-        <hr className="my-8 md:my-10 w-full border-t border-gray-700/60" />
+            
+            <div className="mb-12 h-[1px] w-full bg-white/10"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-4">
+             
+              <div className="flex flex-col justify-between">
+               
+                <div className="flex w-[280px] items-center">
+                  <Image
+                    src="/bz.png"
+                    alt="Bz Analytics Logo"
+                    width={280}
+                    height={70}
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
 
-          <div className="flex flex-col items-center lg:items-start space-y-8">
-            <img
-              src="/bz.png"
-              alt="logo"
-              className="w-[180px] md:w-[220px]"
-            />
+                
+                <div className="mt-12 flex items-center gap-5">
+                  <a
+                    href="#"
+                    className="flex h-14 w-12 shrink-0 items-center justify-center rounded-full bg-black transition-colors hover:bg-amber-600"
+                  >
+                    <Linkedin className="h-6 w-6 fill-white text-white" />
+                  </a>
+                  <a
+                    href="#"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black transition-colors hover:bg-amber-600"
+                  >
+                    <svg
+                      className="h-5 w-5 fill-current text-white"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black transition-colors hover:bg-amber-600"
+                  >
+                    <Facebook className="h-6 w-6 fill-white text-white" />
+                  </a>
+                  <a
+                    href="#"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black transition-colors hover:bg-amber-600"
+                  >
+                    <Instagram className="h-6 w-6 text-white" />
+                  </a>
+                  <a
+                    href="#"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black transition-colors hover:bg-amber-600"
+                  >
+                    <FaYoutube className="h-6 w-6 text-white" />
+                  </a>
+                </div>
+              </div>
 
-            <div className="flex gap-4">
-              {socialIcons.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.link}
-                  className="w-10 h-10 md:w-12 md:h-12 bg-black rounded-full flex items-center justify-center hover:bg-orange-400 transition"
-                >
-                  {item.icon}
-                </a>
-              ))}
+              
+              <div className="grid grid-cols-2 gap-4 lg:ml-8">
+                <div className="flex flex-col gap-4 pt-2 ">
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Home
+                  </a>
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    About Us
+                  </a>
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Services
+                  </a>
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Success Stories
+                  </a>
+                </div>
+                <div className="flex flex-col gap-4 pt-2">
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Blogs
+                  </a>
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Careers
+                  </a>
+                  <a
+                    href="#"
+                    className="text-xl font-medium tracking-wide text-gray-300 transition-colors hover:text-amber-600"
+                  >
+                    Contact Us
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
+        
+          <div className="mt-8 ml-auto w-full shrink-0 lg:-mt-10 lg:mb-auto lg:w-[300px]">
+            <div className="flex flex-col justify-center rounded-sm bg-[#0b0b0b] p-6 shadow-2xl sm:p-8">
+              
+              <div className="mb-6 flex w-full justify-center">
+                <Image
+                  src="/logof.png"
+                  alt="Subscribe Megaphone"
+                  width={160}
+                  height={112}
+                  className="object-contain"
+                />
+              </div>
 
-          <div className="grid grid-cols-2 gap-8 text-center lg:text-left mt-6 lg:mt-0">
-            <div className="space-y-4">
-              {menuColumn1.map((item, index) => (
-                <p
-                  key={index}
-                  className="text-gray-300 hover:text-orange-400 cursor-pointer transition"
-                >
-                  {item}
-                </p>
-              ))}
+              <h3 className="mb-1 text-xl font-medium text-white">
+                Subscribe now
+              </h3>
+              <p className="mb-4 text-xs text-gray-400">Empower Every Mind</p>
+
+              <div className="space-y-3">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="w-full rounded-sm border border-transparent bg-[#151515] px-4 py-2 text-sm text-white transition-colors placeholder:text-gray-500 focus:border-white/20 focus:outline-none"
+                />
+                <button className="w-full rounded-sm bg-[#ff9100] py-2 text-sm font-semibold text-black transition-colors hover:bg-[#e68200]">
+                  Submit
+                </button>
+              </div>
             </div>
-
-            <div className="space-y-4">
-              {menuColumn2.map((item, index) => (
-                <p
-                  key={index}
-                  className="text-gray-300 hover:text-orange-400 cursor-pointer transition"
-                >
-                  {item}
-                </p>
-              ))}
-            </div>
-          </div>
-
-   
-          <div className="bg-[#0000004D] p-6 md:p-8 rounded-xl space-y-6 text-center lg:mt-0 mt-6">
-            <div className="flex justify-center">
-              <img
-                src="/logof.png"
-                alt="subscribe"
-                className="w-20 md:w-24"
-              />
-            </div>
-
-            <h3 className="text-xl md:text-2xl font-semibold">Subscribe now</h3>
-
-            <p className="text-gray-400">Empower Every Mind</p>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`w-full bg-black border px-4 py-3 outline-none transition
-                ${error ? "border-red-500" : "border-gray-700 focus:border-orange-400"}`}
-              />
-
-              {error && <p className="text-red-500 text-sm">{error}</p>}
-
-              {success && <p className="text-green-500 text-sm">{success}</p>}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-orange-400 py-3 hover:bg-white hover:text-orange-400 transition font-medium disabled:opacity-50"
-              >
-                {loading ? "Submitting..." : "Submit"}
-              </button>
-            </form>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
-
-
-
+}

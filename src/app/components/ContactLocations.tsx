@@ -31,17 +31,21 @@ const locations = [
 
 export default function ContactLocations() {
   return (
-    <section className="bg-black py-16 md:py-24">
+    <section className="relative bg-white text-black dark:bg-black dark:text-white py-16 md:py-24 overflow-hidden">
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="bg-neutral-900 rounded-xl p-6 sm:p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+
+        {/* Card Container */}
+        <div className="bg-white dark:bg-neutral-900 border border-black dark:border-gray-700 rounded-xl p-6 sm:p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
 
           {locations.map((location) => (
             <div
               key={location.id}
-              className="flex flex-col sm:flex-row gap-6 text-white text-center sm:text-left items-center sm:items-start"
+              className="flex flex-col sm:flex-row gap-6 text-center sm:text-left items-center sm:items-start"
             >
+
               {/* Flag */}
-              <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center shrink-0">
+              <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center shrink-0">
                 <Image
                   src={location.flag}
                   alt={location.country}
@@ -58,7 +62,7 @@ export default function ContactLocations() {
                 </h3>
 
                 {location.address.map((line, index) => (
-                  <p key={index} className="text-gray-300">
+                  <p key={index} className="text-gray-600 dark:text-gray-300">
                     {line}
                   </p>
                 ))}
@@ -68,12 +72,16 @@ export default function ContactLocations() {
                 {location.phones.map((phone, index) => (
                   <p key={index}>{phone}</p>
                 ))}
+
               </div>
+
             </div>
           ))}
 
         </div>
+
       </div>
+
     </section>
   );
 }

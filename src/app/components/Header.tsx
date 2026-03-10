@@ -1,127 +1,217 @@
 "use client";
-import { FiChevronUp, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Menu } from "lucide-react";
 
-const navItems = [
-  { name: "Home" },
-  { name: "About Us" },
-  { name: "Services" },
-  { name: "Success Stories" },
-  { name: "Blogs" },
-  { name: "Careers" },
-  { name: "Contact Us" },
+const navBar = [
+  "Home",
+  "About Us",
+  "Services",
+  "Success Stories",
+  "Blogs",
+  "Careers",
+  "Contact Us",
 ];
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const languages = [
-  { code: "en", label: "EN", flag: "/usa.png" },
-  { code: "hi", label: "HI", flag: "/india.png" },
-  { code: "ar", label: "AR", flag: "/uae.png" },
-];
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400","500"],
+  display: "swap",
+});
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const languages = [
+    { code: "en", label: "EN", flag: "/usa.png" },
+    { code: "hi", label: "HI", flag: "/india.png" },
+    { code: "ar", label: "AR", flag: "/uae.png" },
+  ];
 
-const Header = () => {
   const [openLang, setOpenLang] = useState(false);
   const [selectedLang, setSelectedLang] = useState(languages[0]);
-  const [openMenu, setOpenMenu] = useState(false);
-
   return (
-    <header className="fixed top-0 left-0 w-full bg-white dark:bg-black z-50">
-      <div className="max-w-[1250px] mx-auto px-3 h-[80px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 z-[100] flex h-[90px] w-full items-center justify-between border-b border-white/5 bg-black py-4 pr-4 pl-6 text-white transition-colors duration-300 md:pr-6 md:pl-12">
+      <Link
+        href="/"
+        className="flex h-10 flex-shrink-0 cursor-pointer items-center md:h-12"
+      >
+        <Image
+          src="/bz.png"
+          alt="Logo"
+          width={180}
+          height={48}
+          className="h-full w-auto object-contain invert-0 transition-all"
+          priority
+        />
+      </Link>
 
-       
-        <img className="w-[150px] h-auto" src="/bz.png" alt="logo" />
-
-     
-        <ul className="hidden lg:flex ml-7 items-center gap-1 text-[15px] font-bold">
-          <span className="text-white text-[13px]">•</span>
-
-          {navItems.map((item, index) => (
-            <li key={index} className="flex items-center gap-3">
-              <span className="cursor-pointer hover:text-orange-500 text-white transition">
-                {item.name}
-              </span>
-
-              {index !== navItems.length - 1 && (
-                <span className="text-white text-[13px]">•</span>
-              )}
-            </li>
-          ))}
-        </ul>
-
-       
-        <div className="flex items-center gap-6">
-
-        
-          <div className="relative">
-            <button
-              onClick={() => setOpenLang(!openLang)}
-              className="flex items-center gap-2 text-white"
-            >
-              <img
-                src={selectedLang.flag}
-                className="w-6 h-6 rounded-full object-cover"
-                alt="flag"
-              />
-              {selectedLang.label}
-              {openLang ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
-            </button>
-
-            {openLang && (
-              <div className="absolute right-0 mt-3 bg-black border border-gray-700 rounded-md shadow-lg w-[120px] z-50">
-                {languages.map((lang) => (
-                  <div
-                    key={lang.code}
-                    onClick={() => {
-                      setSelectedLang(lang);
-                      setOpenLang(false);
-                    }}
-                    className="flex items-center gap-3 px-4 py-2 hover:bg-gray-800 cursor-pointer text-white"
-                  >
-                    <img
-                      src={lang.flag}
-                      className="w-5 h-5 rounded-full object-cover"
-                      alt={lang.label}
-                    />
-                    {lang.label}
-                  </div>
-                ))}
-              </div>
-            )}
+      <div className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-4 whitespace-nowrap lg:flex xl:gap-5">
+        {navBar.map((link) => (
+          <div key={link} className="flex items-center gap-2">
+            <Link
+              href="#"
+              className={`${plusJakarta.className} text-[14px] font-semibold text-white transition-colors hover:text-amber-600 `}
+>
+            <span className="text-white text-[13px] ms-1">•</span>
+              <span>{link}</span>
+            </Link>
           </div>
+        ))}
 
-          
-          <button className="hidden lg:block border me-0.5 border-white text-white font-bold px-5 py-2 hover:bg-white hover:text-black transition">
-            Schedule a consultation
-          </button>
-
-          
+        <div className="relative ml-2">
           <button
-            className="lg:hidden text-white"
-            onClick={() => setOpenMenu(!openMenu)}
+            onClick={() => setOpenLang(!openLang)}
+            className="flex items-center gap-2 text-[14px] font-semibold text-white"
           >
-            {openMenu ? <FiX size={28} /> : <FiMenu size={28} />}
+            <Image
+              src={selectedLang.flag}
+              alt={selectedLang.label}
+              width={24}
+              height={24}
+              className="rounded-full object-cover"
+            />
+            {selectedLang.label}
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {openLang ? (
+                <path d="m18 15-6-6-6 6" />
+              ) : (
+                <path d="m6 9 6 6 6-6" />
+              )}
+            </svg>
           </button>
+
+          {openLang && (
+            <div className="absolute right-0 mt-3 w-[120px] rounded-md border border-white/10 bg-black shadow-lg">
+              {languages.map((lang) => (
+                <div
+                  key={lang.code}
+                  onClick={() => {
+                    setSelectedLang(lang);
+                    setOpenLang(false);
+                  }}
+                  className="flex cursor-pointer items-center gap-3 px-4 py-2 text-white hover:bg-zinc-800"
+                >
+                  <Image
+                    src={lang.flag}
+                    alt={lang.label}
+                    width={20}
+                    height={20}
+                    className="rounded-full object-cover"
+                  />
+                  {lang.label}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      
-      {openMenu && (
-        <div className="lg:hidden bg-black px-6 py-6 space-y-4">
-          {navItems.map((item, index) => (
-            <div
-              key={index}
-              className="text-white border-b border-gray-700 pb-3 cursor-pointer hover:text-orange-500"
+      <div className="hidden items-center sm:flex">
+        <Link
+          href="#"
+          className="flex items-center justify-center border border-white/20 bg-black px-6 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black md:px-10 md:py-4 md:text-[15px]"
+        >
+          Schedule a consultation
+        </Link>
+      </div>
+
+      <div
+        className="flex cursor-pointer items-center rounded-full p-2 text-white transition-colors hover:bg-white/10 lg:hidden"
+        onClick={() => setIsOpen(true)}
+      >
+        <Menu size={28} />
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm"
+            />
+
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 z-[120] flex h-full w-[85%] max-w-sm flex-col border-l border-white/10 bg-[#0a0a0a] p-8"
             >
-              {item.name}
-            </div>
-          ))}
+              <div className="mb-12 flex items-center justify-between">
+                <Image
+                  src="/bz.png"
+                  alt="Logo"
+                  width={120}
+                  height={32}
+                  className="h-8 w-auto object-contain invert-0 transition-all"
+                />
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full p-2 text-white transition-colors hover:bg-white/10"
+                >
+                  <X size={24} />
+                </button>
+              </div>
 
-          <button className="w-full mt-4 border border-white text-white font-bold px-5 py-2 hover:bg-white hover:text-black transition">
-            Schedule a consultation
-          </button>
-        </div>
-      )}
-    </header>
+              <div className="flex flex-col gap-6">
+                {navBar.map((link, i) => (
+                  <motion.div
+                    key={link}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      href="#"
+                      onClick={() => setIsOpen(false)}
+                      className="text-2xl font-bold text-white transition-colors hover:text-[#c17f45]"
+                    >
+                      {link}
+                    </Link>
+                    
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-auto flex flex-col gap-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-6 w-6 overflow-hidden rounded-full border border-white/20">
+                    <Image
+                      src="https://flagcdn.com/w40/us.png"
+                      alt="EN"
+                      width={40}
+                      height={30}
+                      unoptimized
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <span className="font-bold text-white">English (US)</span>
+                </div>
+                <button className="w-full rounded-lg bg-[#c17f45] py-4 text-sm font-extrabold tracking-widest text-black uppercase shadow-xl shadow-orange-950/20">
+                  Consultation
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </nav>
   );
-};
-
-export default Header;
+}
