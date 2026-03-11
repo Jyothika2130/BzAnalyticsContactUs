@@ -3,8 +3,6 @@ import "./globals.css";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Header from "./components/Header";
-
-
 import ThemeToggle from "./components/ThemeToggle";
 import FloatingButtons from "./components/FloatingButtons";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -28,24 +26,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${plusJakarta.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${plusJakarta.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
-          
-         
+
           <ThemeToggle />
+
           {children}
+
           <CustomCursor />
+
           <ScrollProgressCircle />
-           <FloatingButtons />
-        </body>
-      </html>
-    </ThemeProvider>
+
+          <FloatingButtons />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

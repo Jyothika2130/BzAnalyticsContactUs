@@ -113,7 +113,7 @@ export default function ContactPage() {
               experience as we bring your app or website to life.
             </p>
 
-            <h3 className="text-xl sm:text-2xl font-bold mb-8 text-center">
+            <h3 className=" sm:text-2xl font-bold mb-8 text-center text-2xl">
               Your Contact details
             </h3>
 
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 placeholder="Phone number"
               />
             </form>
-<h3 className="text-lg font-semibold text-center mb-4">
+<h3 className=" font-bold text-3xl text-center mb-4">
             Project Details
             </h3>
             <textarea
@@ -169,7 +169,7 @@ export default function ContactPage() {
 
       <section className="bg-white text-black dark:bg-black dark:text-white py-2">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 my-2">
-          <h3 className="text-xl font-semibold text-center mb-4 font-bold">
+          <h3 className="text-2xl  text-center mb-4 font-bold">
             What's your timeline?
           </h3>
 
@@ -207,7 +207,7 @@ export default function ContactPage() {
               </label>
             ))}
           </div>
-          <h3 className="text-xl font-semibold text-center my-10">
+          <h3 className="text-2xl font-semibold text-center my-10">
             Type of business
           </h3>
 
