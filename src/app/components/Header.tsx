@@ -121,11 +121,20 @@ export default function Navbar() {
 
       <div className="hidden items-center sm:flex">
         <Link
-          href="#"
-          className="flex items-center justify-center border border-white/20 bg-black px-6 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black md:px-10 md:py-4 md:text-[15px]"
-        >
-          Schedule a consultation
-        </Link>
+            href="#"
+            className="hidden min-[1200px]:block bg-[#101010] relative overflow-hidden border border-white px-10 py-4 group cursor-pointer flex-shrink-0"
+          >
+
+            <span className="absolute top-1/2 left-1/2 w-[400%] h-[400%] bg-white 
+            -translate-x-1/2 -translate-y-1/2 rotate-45 
+            scale-0 group-hover:scale-110 
+            transition-transform duration-500 ease-out"></span>
+
+            <span className="relative z-10 text-white  group-hover:text-orange-500 transition-colors duration-300 font-extrabold  text-[17px] tracking-normal">
+              Schedule a consultation
+            </span>
+
+          </Link>
       </div>
 
       <div

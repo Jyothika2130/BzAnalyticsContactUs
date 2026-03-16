@@ -20,9 +20,10 @@ export default function ThemeToggle() {
   return (
     <div
       onClick={toggleTheme}
-      className="fixed left-6 bottom-10 z-50 cursor-pointer border px-5 py-2.5 text-[10px] font-extrabold tracking-[0.2em] uppercase transition-all hover:bg-white hover:text-black"
+      className="fixed left-6 bottom-5 z-50 cursor-pointer border px-2.5 py-2.5 text-[12px] font-extrabold tracking-[0.2em] uppercase transition-all hover:bg-white hover:text-black"
     >
       {resolvedTheme === "dark" ? "Light/Dark " : "Dark/Light"}
     </div>
   );
 }
+ 
