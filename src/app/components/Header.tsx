@@ -155,7 +155,7 @@ export default function Navbar() {
               className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm"
             />
 
-            {/* Sidebar */}
+            
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
