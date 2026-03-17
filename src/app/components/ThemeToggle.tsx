@@ -18,12 +18,41 @@ export default function ThemeToggle() {
   };
 
   return (
-    <div
-      onClick={toggleTheme}
-      className="fixed left-6 bottom-5 z-50 cursor-pointer border px-2.5 py-2.5 text-[12px] font-extrabold tracking-[0.2em] uppercase transition-all hover:bg-white hover:text-black"
-    >
-      {resolvedTheme === "dark" ? "Light/Dark " : "Dark/Light"}
-    </div>
+    <button
+  onClick={toggleTheme}
+  className="
+  fixed bottom-[15px] left-[15px] z-[1000]
+  bg-black text-white
+  text-[15px] font-extrabold
+  px-[7px] py-[5px]
+  border border-white
+  overflow-hidden
+  transition-all duration-500
+  cursor-pointer
+  group
+  "
+>
+  
+
+  <span
+    className="
+    absolute left-1/2 top-1/2
+    w-[150%] h-0
+    bg-white
+    -translate-x-1/2 -translate-y-1/2
+    rotate-[-25deg]
+    transition-all duration-300
+    group-hover:h-[400%]
+    -z-10
+    "
+  ></span>
+
+ 
+  <span className="relative z-10 group-hover:text-orange-500 transition-colors duration-300">
+    Light / Dark
+  </span>
+
+</button>
   );
 }
  
