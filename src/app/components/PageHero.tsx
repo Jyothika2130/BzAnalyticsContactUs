@@ -11,7 +11,7 @@ export default function PageHero({ title, breadcrumb }: PageHeroProps) {
   return (
     <section className="relative flex h-[300px] w-full items-center overflow-hidden sm:h-[350px] md:h-[550px] lg:h-[70vh]">
 
-      {/* Background Image */}
+      
       <div className="absolute inset-0 bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat opacity-75"></div>
 
      

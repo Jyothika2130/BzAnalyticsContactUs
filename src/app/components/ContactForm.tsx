@@ -8,7 +8,8 @@ export default function ContactFormPage() {
   const [businessType, setBusinessType] = useState<string>("");
   const [captcha, setCaptcha] = useState<string | null>(null);
   const [source, setSource] = useState("");
-const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,6 +20,7 @@ const [open, setOpen] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
 
+  // HANDLE CHANGE + CLEAR ERROR
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -26,30 +28,37 @@ const [open, setOpen] = useState(false);
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    setErrors((prev: any) => ({
+      ...prev,
+      [e.target.name]: "",
+    }));
   };
 
+  // VALIDATION
   const validateForm = () => {
     const newErrors: any = {};
 
     if (!formData.firstName.trim())
       newErrors.firstName = "First name is required";
 
-    if (!formData.lastName.trim())
-      newErrors.lastName = "Last name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
 
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/^\S+@\S+\.\S+$/.test(formData.email))
       newErrors.email = "Invalid email";
 
-    if (!formData.phone.trim())
-      newErrors.phone = "Phone number is required";
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
 
     if (!formData.project.trim())
       newErrors.project = "Project details required";
 
     if (!timeline) newErrors.timeline = "Select timeline";
     if (!businessType) newErrors.businessType = "Select business type";
-    if (!source) newErrors.source = "Select source";
+
+    if (!source || source === "Select an option")
+      newErrors.source = "Select source";
+
     if (!captcha) newErrors.captcha = "Verify captcha";
 
     setErrors(newErrors);
@@ -59,23 +68,84 @@ const [open, setOpen] = useState(false);
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      alert("Form submitted successfully ✅");
+    // RESET ERRORS
+    setErrors({});
 
-      console.log({
-        ...formData,
-        timeline,
-        businessType,
-        source,
-        captcha,
-      });
+    // ✅ 1. CAPTCHA FIRST
+    if (!captcha) {
+      setErrors({ captcha: "please complete the reCaptcha" });
+      return;
     }
+
+    // ✅ 2. FIRST NAME
+    if (!formData.firstName.trim()) {
+      setErrors({ firstName: "Please enter your first name" });
+      return;
+    }
+
+    // ✅ 3. LAST NAME
+    if (!formData.lastName.trim()) {
+      setErrors({ lastName: " Please enter your last name" });
+      return;
+    }
+
+    // ✅ 4. EMAIL
+    if (!formData.email.trim()) {
+      setErrors({ email: "Please enter your email address" });
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      setErrors({ email: "Invalid email" });
+      return;
+    }
+
+    // ✅ 5. PHONE
+    if (!formData.phone.trim()) {
+      setErrors({ phone: " Please enter your phone number" });
+      return;
+    }
+
+    // ✅ 6. PROJECT
+    if (!formData.project.trim()) {
+      setErrors({ project: "Project details required" });
+      return;
+    }
+
+    // ✅ 7. TIMELINE
+    if (!timeline) {
+      setErrors({ timeline: "Select timeline" });
+      return;
+    }
+
+    // ✅ 8. BUSINESS
+    if (!businessType) {
+      setErrors({ businessType: "Select business type" });
+      return;
+    }
+
+    // ✅ 9. SOURCE
+    if (!source || source === "Select an option") {
+      setErrors({ source: "Select source" });
+      return;
+    }
+
+    // ✅ SUCCESS
+    alert("Form submitted successfully ✅");
+
+    console.log({
+      ...formData,
+      timeline,
+      businessType,
+      source,
+      captcha,
+    });
   };
 
   return (
     <>
-      {/* TOP SECTION */}
-      <section className="bg-white text-black dark:bg-black dark:text-white py-16 md:py-24">
+      <section className="relative bg-white text-black dark:bg-black dark:text-white py-16 md:py-24 overflow-hidden">
+        <span className="absolute top-16 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-orange-700" />
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <p className="text-sm tracking-widest text-gray-500 dark:text-gray-400 uppercase text-center mb-4">
             Contact with BZ
@@ -90,103 +160,135 @@ const [open, setOpen] = useState(false);
             experience as we bring your app or website to life.
           </p>
 
-          <h3 className="text-2xl font-bold mb-8 text-center">
+          <h3 className="text-4xl font-bold mb-8 text-center">
             Your Contact details
           </h3>
 
           <form className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
-            <input
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className="input w-full h-[63px]"
-              placeholder="First name"
-            />
+            {/* FIRST NAME */}
+            <div>
+              <input
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className={`input w-full h-[63px] ${
+                  errors.firstName ? "border-red-500" : ""
+                }`}
+                placeholder="First name"
+              />
+              {errors.firstName && (
+                <p className="text-yellow-500 text-center font-bold text-sm">
+                  {errors.firstName}
+                </p>
+              )}
+            </div>
 
-            <input
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="input w-full h-[63px]"
-              placeholder="Last name"
-            />
+            {/* LAST NAME */}
+            <div>
+              <input
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className={`input w-full h-[63px] ${
+                  errors.lastName ? "border-red-500" : ""
+                }`}
+                placeholder="Last name"
+              />
+              {errors.lastName && (
+                <p className="text-yellow-500 text-center font-bold text-sm">
+                  {errors.lastName}
+                </p>
+              )}
+            </div>
 
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="input w-full h-[63px]"
-              placeholder="Email address"
-            />
+            {/* EMAIL */}
+            <div>
+              <input
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`input w-full h-[63px] ${
+                  errors.email ? "border-red-500" : ""
+                }`}
+                placeholder="Email address"
+              />
+              {errors.email && (
+                <p className="text-yellow-500 text-center font-bold text-sm">
+                  {errors.email}
+                </p>
+              )}
+            </div>
 
-            <input
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              className="input w-full h-[63px]"
-              placeholder="Phone number"
-            />
+            {/* PHONE */}
+            <div>
+              <input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className={`input w-full h-[63px] ${
+                  errors.phone ? "border-red-500" : ""
+                }`}
+                placeholder="Phone number"
+              />
+              {errors.phone && (
+                <p className="text-yellow-500 text-center font-bold text-sm">
+                  {errors.phone}
+                </p>
+              )}
+            </div>
           </form>
 
-          <h3 className="text-2xl font-medium text-center mb-4">
+          <h3 className=" font-extrabold  text-4xl text-center mb-4">
             Project Details
           </h3>
 
-          <textarea
-            name="project"
-            rows={6}
-            value={formData.project}
-            onChange={handleChange}
-            placeholder="Tell us about your project"
-            className="input w-full h-[130px]"
-          />
+          <div>
+            <textarea
+              name="project"
+              rows={6}
+              value={formData.project}
+              onChange={handleChange}
+              className={`input w-full h-[130px] ${
+                errors.project ? "border-red-500" : ""
+              }`}
+              placeholder="Tell us about your project"
+            />
+            {errors.project && (
+              <p className="text-yellow-500 text-center font-bold text-sm">
+                {errors.project}
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
       {/* RADIO SECTION */}
-      <section className="bg-white dark:bg-black py-12">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-
+      <section className="bg-white dark:bg-black ">
+        <div className="max-w-3xl mx-auto  sm:px-6 text-center">
           {/* TIMELINE */}
-          <h3 className="text-2xl font-bold mb-10 text-black dark:text-white">
-            What's your timeline?
-          </h3>
+          <h3 className="font-bold mb-10">What's your timeline?</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 ">
             {[
-              {
-                title: "No timeline",
-                sub: "(just researching)",
-              },
-              {
-                title: "Planning",
-                sub: "(looking to start in 6 months)",
-              },
-              {
-                title: "Immediate",
-                sub: "(ready to start today)",
-              },
+              { title: "No timeline", sub: "(just researching)" },
+              { title: "Planning", sub: "(looking to start in 6 months)" },
+              { title: "Immediate", sub: "(ready to start today)" },
             ].map((item) => (
               <label
                 key={item.title}
-                className="flex flex-col items-center cursor-pointer gap-3"
+                className="flex items-center cursor-pointer gap-3 font-bold"
               >
                 <input
                   type="radio"
                   name="timeline"
                   checked={timeline === item.title}
                   onChange={() => setTimeline(item.title)}
-                  className="hidden"
+                  className="hidden "
                 />
 
-                {/* RADIO */}
                 <span
-                  className={`w-5 h-5 rounded-full border dark:border-none flex items-center justify-center ${
-                    timeline === item.title
-                      ? "bg-orange-500"
-                      : "bg-white"
+                  className={`w-4 h-4 rounded-full border dark:border-none flex items-center justify-center ${
+                    timeline === item.title ? "bg-orange-500" : "bg-white"
                   }`}
                 >
                   {timeline === item.title && (
@@ -194,28 +296,34 @@ const [open, setOpen] = useState(false);
                   )}
                 </span>
 
-                <p className="font-medium text-black dark:text-white">
-                  {item.title}
-                </p>
+                <div className="mt-4">
+                  <p className="font-medium text-black dark:text-white">
+                    {item.title}
+                  </p>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 max-w-[180px]">
-                  {item.sub}
-                </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 max-w-[180px]">
+                    {item.sub}
+                  </p>
+                </div>
               </label>
             ))}
           </div>
 
-          {/* BUSINESS */}
-          <h3 className="text-2xl font-bold mt-16 mb-10 text-black dark:text-white">
-            Type of business
-          </h3>
+          {errors.timeline && (
+            <p className="text-yellow-500 text-center font-bold mt-2">
+              {errors.timeline}
+            </p>
+          )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {/* BUSINESS */}
+          <h3 className="mt-10 mb-10 font-bold ">Type of business</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
             {["Startup", "Small to medium business", "Enterprise"].map(
               (type) => (
                 <label
                   key={type}
-                  className="flex flex-col items-center cursor-pointer gap-3"
+                  className="flex  items-center cursor-pointer gap-3"
                 >
                   <input
                     type="radio"
@@ -226,10 +334,8 @@ const [open, setOpen] = useState(false);
                   />
 
                   <span
-                    className={`w-5 h-5 rounded-full border dark:border-none flex items-center justify-center ${
-                      businessType === type
-                        ? "bg-orange-500"
-                        : "bg-white "
+                    className={`w-4 h-4 rounded-full border dark:border-none flex items-center justify-center ${
+                      businessType === type ? "bg-orange-500" : "bg-white "
                     }`}
                   >
                     {businessType === type && (
@@ -245,60 +351,94 @@ const [open, setOpen] = useState(false);
             )}
           </div>
 
-    <div className="relative w-full max-w-2xl mx-auto mt-12">
-  
-  {/* SELECT BOX */}
-  <div
-    onClick={() => setOpen(!open)}
-    className="w-full h-[60px] flex items-center justify-between px-4 rounded-md cursor-pointer input
-   e"
-  >
-    {source || "Select an option"}
-    <span className="text-gray-500">▼</span>
-  </div>
+          {errors.businessType && (
+            <p className="text-yellow-500 text-center font-bold mt-2">
+              {errors.businessType}
+            </p>
+          )}
 
-  {open && (
-    <div className="absolute w-full mt-2 rounded-md overflow-hidden z-10 ">
-      {[
-        "Select an option",
-        "Social media",
-        "Referral",
-        "Advertisement",
-      ].map((item) => (
-        <div
-          key={item}
-          onClick={() => {
-            setSource(item);
-            setOpen(false);
-          }}
-          className="
-            px-4 py-3 cursor-pointer transition
-            border-b border-black dark:border-white
-            bg-[#EAEAEA] dark:bg-black
-            text-black dark:text-[#EAEAEA] 
-            hover:bg-orange-500 hover:text-white 
-          "
-        >
-          {item}
-        </div>
-      ))}
-    </div>
-  )}
-</div>
+          
+          <div className="mt-10">
+            <div
+              onClick={() => setOpen(!open)}
+              className=" h-[65px]  flex items-center justify-between px-4 rounded-md cursor-pointer input "
+            >
+              {" "}
+              {source || "Select an option"}{" "}
+              <span className="text-gray-500">▼</span>{" "}
+            </div>
 
-          {/* CAPTCHA + BUTTON */}
-          <div className="flex flex-col items-center mt-10 gap-6">
+            {open && (
+              <div className=" mt-2">
+                {[
+                  "select an option",
+                  "Social media",
+                  "Referral",
+                  "Advertisement",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    onClick={() => {
+                      setSource(item);
+                      setOpen(false);
+                    }}
+                    className="p-3 cursor-pointer hover:bg-orange-500 hover:text-white"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {errors.source && (
+            <p className="text-yellow-500 text-center font-bold mt-2">
+              {errors.source}
+            </p>
+          )}
+
+          
+          <div className="mt-8 flex flex-col items-center gap-4">
             <ReCAPTCHA
               sitekey="6LctE4YsAAAAADDAowc8rnztiGm3L_l_hkRh3D7b"
-              onChange={(value) => setCaptcha(value)}
+              onChange={(val) => setCaptcha(val)}
+              theme="dark"
             />
 
+            {errors.captcha && (
+              <p className="text-yellow-500 text-center font-bold">
+                {errors.captcha}
+              </p>
+            )}
+
             <button
-              onClick={handleSubmit}
-              className="bg-orange-500 hover:bg-orange-600 transition text-white font-semibold px-12 py-4 rounded-md"
-            >
-              Submit
-            </button>
+  type="submit"
+  className="relative overflow-hidden group
+             font-bold text-lg 
+             px-8 py-4 
+             text-white bg-orange-500
+             transition-all duration-500"
+>
+
+  <span
+    className="
+      absolute left-1/2 top-1/2
+      w-[150%] h-0
+      bg-white
+      -translate-x-1/2 -translate-y-1/2
+      rotate-[-25deg]
+      transition-all duration-500
+      group-hover:h-[400%]
+      z-0
+    "
+  ></span>
+
+ 
+  <span className="relative z-10 transition-colors duration-300 group-hover:text-orange-500">
+    Submit
+  </span>
+
+</button>
           </div>
         </div>
       </section>

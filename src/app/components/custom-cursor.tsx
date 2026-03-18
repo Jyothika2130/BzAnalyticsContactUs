@@ -5,7 +5,7 @@ import { motion, useSpring, useMotionValue } from 'framer-motion';
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
 
-  // Smooth position tracking
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -21,7 +21,7 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if hovering over a link, button, or something with a cursor pointer
+      
       const isClickable =
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
