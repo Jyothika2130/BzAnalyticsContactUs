@@ -177,10 +177,10 @@ export default function ContactFormPage() {
                 placeholder="First name"
               />
               {errors.firstName && (
-                <p className="text-yellow-500 text-center font-bold text-sm">
-                  {errors.firstName}
-                </p>
-              )}
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.firstName}
+  </p>
+)}
             </div>
 
             {/* LAST NAME */}
@@ -195,10 +195,10 @@ export default function ContactFormPage() {
                 placeholder="Last name"
               />
               {errors.lastName && (
-                <p className="text-yellow-500 text-center font-bold text-sm">
-                  {errors.lastName}
-                </p>
-              )}
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.lastName}
+  </p>
+)}
             </div>
 
             {/* EMAIL */}
@@ -213,10 +213,10 @@ export default function ContactFormPage() {
                 placeholder="Email address"
               />
               {errors.email && (
-                <p className="text-yellow-500 text-center font-bold text-sm">
-                  {errors.email}
-                </p>
-              )}
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.email}
+  </p>
+)}
             </div>
 
             {/* PHONE */}
@@ -231,10 +231,10 @@ export default function ContactFormPage() {
                 placeholder="Phone number"
               />
               {errors.phone && (
-                <p className="text-yellow-500 text-center font-bold text-sm">
-                  {errors.phone}
-                </p>
-              )}
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.phone}
+  </p>
+)}
             </div>
           </form>
 
@@ -248,200 +248,216 @@ export default function ContactFormPage() {
               rows={6}
               value={formData.project}
               onChange={handleChange}
-              className={`input w-full h-[130px] ${
+              className={`input w-full h-[130px] font-bold px-1${
                 errors.project ? "border-red-500" : ""
               }`}
-              placeholder="Tell us about your project"
+              placeholder="Quick project overview"
             />
-            {errors.project && (
-              <p className="text-yellow-500 text-center font-bold text-sm">
-                {errors.project}
-              </p>
-            )}
+            {errors.businessType && (
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.businessType}
+  </p>
+)}
           </div>
         </div>
       </section>
 
-      {/* RADIO SECTION */}
-      <section className="bg-white dark:bg-black ">
-        <div className="max-w-3xl mx-auto  sm:px-6 text-center">
-          {/* TIMELINE */}
-          <h3 className="font-bold mb-10">What's your timeline?</h3>
+      
+      <section className="bg-white dark:bg-black py-12">
+  <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 ">
-            {[
-              { title: "No timeline", sub: "(just researching)" },
-              { title: "Planning", sub: "(looking to start in 6 months)" },
-              { title: "Immediate", sub: "(ready to start today)" },
-            ].map((item) => (
-              <label
-                key={item.title}
-                className="flex items-center cursor-pointer gap-3 font-bold"
-              >
-                <input
-                  type="radio"
-                  name="timeline"
-                  checked={timeline === item.title}
-                  onChange={() => setTimeline(item.title)}
-                  className="hidden "
-                />
+    {/* TIMELINE */}
+    <h3 className="font-bold text-xl sm:text-2xl mb-8">
+      What's your timeline?
+    </h3>
 
-                <span
-                  className={`w-4 h-4 rounded-full border dark:border-none flex items-center justify-center ${
-                    timeline === item.title ? "bg-orange-500" : "bg-white"
-                  }`}
-                >
-                  {timeline === item.title && (
-                    <span className="w-2.5 h-2.5 bg-amber-600  dark:bg-white rounded-full" />
-                  )}
-                </span>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        { title: "No timeline", sub: "(just researching)" },
+        { title: "Planning", sub: "(looking to start in 6 months)" },
+        { title: "Immediate", sub: "(ready to start today)" },
+      ].map((item) => (
+        <label
+          key={item.title}
+          className="flex items-center gap-3 justify-center cursor-pointer text-left"
+        >
+          <input
+            type="radio"
+            name="timeline"
+            checked={timeline === item.title}
+            onChange={() => setTimeline(item.title)}
+            className="hidden"
+          />
 
-                <div className="mt-4">
-                  <p className="font-medium text-black dark:text-white">
-                    {item.title}
-                  </p>
-
-                  <p className="text-sm text-gray-600 dark:text-gray-400 max-w-[180px]">
-                    {item.sub}
-                  </p>
-                </div>
-              </label>
-            ))}
-          </div>
-
-          {errors.timeline && (
-            <p className="text-yellow-500 text-center font-bold mt-2">
-              {errors.timeline}
-            </p>
-          )}
-
-          {/* BUSINESS */}
-          <h3 className="mt-10 mb-10 font-bold ">Type of business</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
-            {["Startup", "Small to medium business", "Enterprise"].map(
-              (type) => (
-                <label
-                  key={type}
-                  className="flex  items-center cursor-pointer gap-3"
-                >
-                  <input
-                    type="radio"
-                    name="business"
-                    checked={businessType === type}
-                    onChange={() => setBusinessType(type)}
-                    className="hidden"
-                  />
-
-                  <span
-                    className={`w-4 h-4 rounded-full border dark:border-none flex items-center justify-center ${
-                      businessType === type ? "bg-orange-500" : "bg-white "
-                    }`}
-                  >
-                    {businessType === type && (
-                      <span className="w-2.5 h-2.5 bg-amber-600 dark:bg-white  rounded-full" />
-                    )}
-                  </span>
-
-                  <p className="font-medium text-black dark:text-white max-w-[180px]">
-                    {type}
-                  </p>
-                </label>
-              ),
+          {/* RADIO */}
+          <span
+            className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+              timeline === item.title
+                ? "bg-orange-500"
+                : "bg-white"
+            }`}
+          >
+            {timeline === item.title && (
+              <span className="w-2.5 h-2.5 bg-amber-600 dark:bg-white rounded-full" />
             )}
-          </div>
+          </span>
 
-          {errors.businessType && (
-            <p className="text-yellow-500 text-center font-bold mt-2">
-              {errors.businessType}
+          <div className="text-left">
+            <p className="font-medium text-black dark:text-white">
+              {item.title}
             </p>
-          )}
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {item.sub}
+            </p>
+          </div>
+        </label>
+      ))}
+    </div>
 
-          
-          <div className="mt-10">
+   {errors.timeline && (
+  <p className="
+    text-[#FFA500] 
+    text-[16px] 
+    font-medium 
+    tracking-[0.5px] 
+    leading-[30px] 
+    text-center 
+    mb-4
+  ">
+    {errors.timeline}
+  </p>
+)}
+
+    {/* BUSINESS */}
+    <h3 className="mt-12 mb-8 font-bold text-xl sm:text-2xl">
+      Type of business
+    </h3>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {["Startup", "Small to medium business", "Enterprise"].map((type) => (
+        <label
+          key={type}
+          className="flex items-center gap-3 justify-center cursor-pointer text-left"
+        >
+          <input
+            type="radio"
+            name="business"
+            checked={businessType === type}
+            onChange={() => setBusinessType(type)}
+            className="hidden"
+          />
+
+          <span
+            className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+              businessType === type
+                ? "bg-orange-500"
+                : "bg-white"
+            }`}
+          >
+            {businessType === type && (
+              <span className="w-2.5 h-2.5 bg-amber-600 dark:bg-white rounded-full" />
+            )}
+          </span>
+
+          <p className="font-medium text-black dark:text-white">
+            {type}
+          </p>
+        </label>
+      ))}
+    </div>
+
+    {errors.businessType && (
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.businessType}
+  </p>
+)}
+
+    {/* DROPDOWN */}
+    <div className="mt-10 w-full">
+      <div
+        onClick={() => setOpen(!open)}
+        className="w-full h-[60px] flex items-center justify-between px-4 rounded-md cursor-pointer input"
+      >
+        {source || "Select an option"}
+        <span className="text-gray-500">▼</span>
+      </div>
+
+      {open && (
+        <div className="mt-2 rounded-md overflow-hidden border dark:border-white">
+          {[
+            "Select an option",
+            "Social media",
+            "Referral",
+            "Advertisement",
+          ].map((item) => (
             <div
-              onClick={() => setOpen(!open)}
-              className=" h-[65px]  flex items-center justify-between px-4 rounded-md cursor-pointer input "
+              key={item}
+              onClick={() => {
+                setSource(item);
+                setOpen(false);
+              }}
+              className="px-4 py-3 cursor-pointer 
+              bg-[#EAEAEA] dark:bg-black
+              text-black dark:text-white
+              border-b border-black dark:border-white
+              hover:bg-orange-500 hover:text-white transition"
             >
-              {" "}
-              {source || "Select an option"}{" "}
-              <span className="text-gray-500">▼</span>{" "}
+              {item}
             </div>
-
-            {open && (
-              <div className=" mt-2">
-                {[
-                  "select an option",
-                  "Social media",
-                  "Referral",
-                  "Advertisement",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    onClick={() => {
-                      setSource(item);
-                      setOpen(false);
-                    }}
-                    className="p-3 cursor-pointer hover:bg-orange-500 hover:text-white"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {errors.source && (
-            <p className="text-yellow-500 text-center font-bold mt-2">
-              {errors.source}
-            </p>
-          )}
-
-          
-          <div className="mt-8 flex flex-col items-center gap-4">
-            <ReCAPTCHA
-              sitekey="6LctE4YsAAAAADDAowc8rnztiGm3L_l_hkRh3D7b"
-              onChange={(val) => setCaptcha(val)}
-              theme="dark"
-            />
-
-            {errors.captcha && (
-              <p className="text-yellow-500 text-center font-bold">
-                {errors.captcha}
-              </p>
-            )}
-
-            <button
-  type="submit"
-  className="relative overflow-hidden group
-             font-bold text-lg 
-             px-8 py-4 
-             text-white bg-orange-500
-             transition-all duration-500"
->
-
-  <span
-    className="
-      absolute left-1/2 top-1/2
-      w-[150%] h-0
-      bg-white
-      -translate-x-1/2 -translate-y-1/2
-      rotate-[-25deg]
-      transition-all duration-500
-      group-hover:h-[400%]
-      z-0
-    "
-  ></span>
-
- 
-  <span className="relative z-10 transition-colors duration-300 group-hover:text-orange-500">
-    Submit
-  </span>
-
-</button>
-          </div>
+          ))}
         </div>
-      </section>
+      )}
+    </div>
+
+   {errors.source && (
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.source}
+  </p>
+)}
+
+    {/* CAPTCHA + BUTTON */}
+    <div className="mt-10 flex flex-col items-center gap-6">
+
+      <ReCAPTCHA
+        sitekey="6LctE4YsAAAAADDAowc8rnztiGm3L_l_hkRh3D7b"
+        onChange={(val) => setCaptcha(val)}
+        theme="dark"
+      />
+
+      {errors.captcha && (
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+    {errors.captcha}
+  </p>
+)}
+
+      <button
+        type="submit"
+        onClick={handleSubmit}
+        className="relative overflow-hidden group
+        font-bold text-lg 
+        px-10 py-4 
+        text-white bg-orange-500"
+      >
+        <span
+          className="
+          absolute left-1/2 top-1/2
+          w-[150%] h-0
+          bg-white
+          -translate-x-1/2 -translate-y-1/2
+          rotate-[-25deg]
+          transition-all duration-500
+          group-hover:h-[400%]
+          z-0"
+        ></span>
+
+        <span className="relative z-10 group-hover:text-orange-500 transition">
+          Submit
+        </span>
+      </button>
+    </div>
+
+  </div>
+</section>
     </>
   );
 }
