@@ -2,13 +2,14 @@
 
 import { useState, SetStateAction } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import { useTheme } from "next-themes";
 export default function ContactFormPage() {
   const [timeline, setTimeline] = useState<string>("");
   const [businessType, setBusinessType] = useState<string>("");
   const [captcha, setCaptcha] = useState<string | null>(null);
   const [source, setSource] = useState("");
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -71,25 +72,25 @@ export default function ContactFormPage() {
     // RESET ERRORS
     setErrors({});
 
-    // ✅ 1. CAPTCHA FIRST
+    //  1. CAPTCHA FIRST
     if (!captcha) {
-      setErrors({ captcha: "please complete the reCaptcha" });
+      setErrors({ captcha: "please complete the reCAPTCHA" });
       return;
     }
 
-    // ✅ 2. FIRST NAME
+    // 2. FIRST NAME
     if (!formData.firstName.trim()) {
       setErrors({ firstName: "Please enter your first name" });
       return;
     }
 
-    // ✅ 3. LAST NAME
+    // 3. LAST NAME
     if (!formData.lastName.trim()) {
       setErrors({ lastName: " Please enter your last name" });
       return;
     }
 
-    // ✅ 4. EMAIL
+    // 4. EMAIL
     if (!formData.email.trim()) {
       setErrors({ email: "Please enter your email address" });
       return;
@@ -99,38 +100,38 @@ export default function ContactFormPage() {
       return;
     }
 
-    // ✅ 5. PHONE
+    // 5. PHONE
     if (!formData.phone.trim()) {
       setErrors({ phone: " Please enter your phone number" });
       return;
     }
 
-    // ✅ 6. PROJECT
+    //  6. PROJECT
     if (!formData.project.trim()) {
       setErrors({ project: "Project details required" });
       return;
     }
 
-    // ✅ 7. TIMELINE
+    //  7. TIMELINE
     if (!timeline) {
       setErrors({ timeline: "Select timeline" });
       return;
     }
 
-    // ✅ 8. BUSINESS
+    //  8. BUSINESS
     if (!businessType) {
       setErrors({ businessType: "Select business type" });
       return;
     }
 
-    // ✅ 9. SOURCE
+    //  9. SOURCE
     if (!source || source === "Select an option") {
       setErrors({ source: "Select source" });
       return;
     }
 
-    // ✅ SUCCESS
-    alert("Form submitted successfully ✅");
+    // SUCCESS
+    alert("Form submitted successfully ");
 
     console.log({
       ...formData,
@@ -144,10 +145,10 @@ export default function ContactFormPage() {
   return (
     <>
       <section className="relative bg-white text-black dark:bg-black dark:text-white py-16 md:py-24 overflow-hidden">
-        <span className="absolute top-16 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-orange-700" />
+        <span className="absolute top-16 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-yellow-600" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <p className="text-sm tracking-widest text-gray-500 dark:text-gray-400 uppercase text-center mb-4">
+          <p className="text-sm tracking-widest text-gray-500 dark:text-gray-400 uppercase text-center mb-3">
             Contact with BZ
           </p>
 
@@ -155,12 +156,12 @@ export default function ContactFormPage() {
             Get in touch <br /> with Bz Team
           </h2>
 
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-center mb-14">
+          <p className=" max-w-2xl mx-auto text-center mb-14">
             We’re ready to become your personal guide through the software
             experience as we bring your app or website to life.
           </p>
 
-          <h3 className="text-4xl font-bold mb-8 text-center">
+          <h3 className="text-3xl font-bold mb-8 text-center">
             Your Contact details
           </h3>
 
@@ -238,7 +239,7 @@ export default function ContactFormPage() {
             </div>
           </form>
 
-          <h3 className=" font-extrabold  text-4xl text-center mb-4">
+          <h3 className=" font-extrabold  text-3xl text-center mb-4">
             Project Details
           </h3>
 
@@ -263,11 +264,11 @@ export default function ContactFormPage() {
       </section>
 
       
-      <section className="bg-white dark:bg-black py-12">
+      <section className="bg-white dark:bg-black py-5">
   <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
 
     {/* TIMELINE */}
-    <h3 className="font-bold text-xl sm:text-2xl mb-8">
+    <h3 className="font-bold   mb-4">
       What's your timeline?
     </h3>
 
@@ -279,7 +280,7 @@ export default function ContactFormPage() {
       ].map((item) => (
         <label
           key={item.title}
-          className="flex items-center gap-3 justify-center cursor-pointer text-left"
+          className="flex items-center gap-5 justify-center cursor-pointer text-left"
         >
           <input
             type="radio"
@@ -303,10 +304,10 @@ export default function ContactFormPage() {
           </span>
 
           <div className="text-left">
-            <p className="font-medium text-black dark:text-white">
+            <p className="font-medium text-black dark:text-white mt-2 text-center">
               {item.title}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 font-bold dark:text-gray-400">
               {item.sub}
             </p>
           </div>
@@ -322,14 +323,14 @@ export default function ContactFormPage() {
     tracking-[0.5px] 
     leading-[30px] 
     text-center 
-    mb-4
+    
   ">
     {errors.timeline}
   </p>
 )}
 
     {/* BUSINESS */}
-    <h3 className="mt-12 mb-8 font-bold text-xl sm:text-2xl">
+    <h3 className="mt-12 mb-5 font-bold ">
       Type of business
     </h3>
 
@@ -337,7 +338,7 @@ export default function ContactFormPage() {
       {["Startup", "Small to medium business", "Enterprise"].map((type) => (
         <label
           key={type}
-          className="flex items-center gap-3 justify-center cursor-pointer text-left"
+          className="flex items-center gap-4 justify-center cursor-pointer text-left"
         >
           <input
             type="radio"
@@ -359,7 +360,7 @@ export default function ContactFormPage() {
             )}
           </span>
 
-          <p className="font-medium text-black dark:text-white">
+          <p className="font-medium text-black mt-2 text-center dark:text-white">
             {type}
           </p>
         </label>
@@ -372,7 +373,9 @@ export default function ContactFormPage() {
   </p>
 )}
 
-    {/* DROPDOWN */}
+    <h3 className="mt-12  font-bold ">
+      Where did you hear about us
+    </h3>
     <div className="mt-10 w-full">
       <div
         onClick={() => setOpen(!open)}
@@ -416,16 +419,19 @@ export default function ContactFormPage() {
 )}
 
     {/* CAPTCHA + BUTTON */}
-    <div className="mt-10 flex flex-col items-center gap-6">
+    <div className="mt-5 flex flex-col items-center gap-2">
 
-      <ReCAPTCHA
-        sitekey="6LctE4YsAAAAADDAowc8rnztiGm3L_l_hkRh3D7b"
-        onChange={(val) => setCaptcha(val)}
-        theme="dark"
-      />
+       <div className="">
+              <ReCAPTCHA
+                key={theme}
+                theme={theme === "dark" ? "dark" : "light"}
+                sitekey="6Le9lpQsAAAAAO0h298D3eJDXb65MTkU3C-pa-uz"
+                onChange={(val) => setCaptcha(val)}
+              />
+            </div>
 
       {errors.captcha && (
-  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center mb-4">
+  <p className="text-[#FFA500] text-[16px] font-medium tracking-[0.5px] leading-[30px] text-center ">
     {errors.captcha}
   </p>
 )}
@@ -436,7 +442,7 @@ export default function ContactFormPage() {
         className="relative overflow-hidden group
         font-bold text-lg 
         px-10 py-4 
-        text-white bg-orange-500"
+        text-white bg-orange-500 mt-3"
       >
         <span
           className="
