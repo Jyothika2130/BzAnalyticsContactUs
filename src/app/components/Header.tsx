@@ -18,7 +18,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400","500"],
+  weight: ["400", "500"],
   display: "swap",
 });
 export default function Navbar() {
@@ -53,8 +53,8 @@ export default function Navbar() {
             <Link
               href="#"
               className={`${plusJakarta.className} text-[14px] font-semibold text-white transition-colors hover:text-amber-600 `}
->
-            <span className="text-white text-[13px] ms-1">•</span>
+            >
+              <span className="text-white text-[13px] ms-1">•</span>
               <span>{link}</span>
             </Link>
           </div>
@@ -121,20 +121,20 @@ export default function Navbar() {
 
       <div className="hidden items-center sm:flex">
         <Link
-            href="#"
-            className="hidden min-[1200px]:block bg-[#101010] relative overflow-hidden border border-white px-10 py-4 group cursor-pointer flex-shrink-0"
-          >
-
-            <span className="absolute top-1/2 left-1/2 w-[400%] h-[400%] bg-white 
+          href="#"
+          className="hidden min-[1200px]:block bg-[#101010] relative overflow-hidden border border-white px-10 py-4 group cursor-pointer flex-shrink-0"
+        >
+          <span
+            className="absolute top-1/2 left-1/2 w-[400%] h-[400%] bg-white 
             -translate-x-1/2 -translate-y-1/2 rotate-45 
             scale-0 group-hover:scale-110 
-            transition-transform duration-500 ease-out"></span>
+            transition-transform duration-500 ease-out"
+          ></span>
 
-            <span className="relative z-10 text-white  group-hover:text-orange-500 transition-colors duration-300 font-extrabold  text-[17px] tracking-normal">
-              Schedule a consultation
-            </span>
-
-          </Link>
+          <span className="relative z-10 text-white  group-hover:text-orange-500 transition-colors duration-300 font-extrabold  text-[17px] tracking-normal">
+            Schedule a consultation
+          </span>
+        </Link>
       </div>
 
       <div
@@ -155,7 +155,6 @@ export default function Navbar() {
               className="fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm"
             />
 
-            
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -194,7 +193,6 @@ export default function Navbar() {
                     >
                       {link}
                     </Link>
-                    
                   </motion.div>
                 ))}
               </div>
